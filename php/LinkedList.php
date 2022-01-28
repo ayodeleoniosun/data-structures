@@ -39,6 +39,30 @@ class LinkedList
         $current->next = $node;
     }
 
+
+    public function appendBeforeNode(int $data, int $target): void
+    {
+        $node = new Node($data);
+
+        if (is_null($this->head) || $this->head->data == $target) {
+            $node->next = $this->head;
+            $this->head = $node;
+            return;
+        }
+
+        $current = $this->head;
+
+        while (!is_null($current->next)) {
+            if ($current->next->data == $target) {
+                $node->next = $current->next;
+                $current->next = $node;
+                return;
+            }
+
+            $current = $current->next;
+        }
+    }
+
     public function prepend(int $data): void
     {
         $newHead = new Node($data);
@@ -92,4 +116,7 @@ $list->append(40);
 $list->prepend(55);
 $list->prepend(50);
 $list->delete(35);
+$list->appendBeforeNode(5, 50);
+$list->appendBeforeNode(95, 20);
+$list->appendBeforeNode(55, 40);
 $list->print();
