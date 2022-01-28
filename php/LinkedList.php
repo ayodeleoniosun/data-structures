@@ -125,17 +125,18 @@ class LinkedList
     public function print(): void
     {
         if (is_null($this->head)) {
-            echo "The list is empty";
-        } else {
-            $current = $this->head;
-            echo $current->data . " ";
-
-            while (!is_null($current->next)) {
-                echo $current->next->data . " ";
-                $current = $current->next;
-            }
-            echo PHP_EOL;
+            echo "The list is empty" . PHP_EOL;
+            return;
         }
+
+        $current = $this->head;
+        echo $current->data . " ";
+
+        while (!is_null($current->next)) {
+            echo $current->next->data . " ";
+            $current = $current->next;
+        }
+        echo PHP_EOL;
     }
 }
 
