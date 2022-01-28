@@ -100,6 +100,34 @@ class LinkedList
         $this->head = $newHead;
     }
 
+    public function search(int $data): void
+    {
+        if (is_null($this->head)) {
+            echo $data . " not found" . PHP_EOL;
+            return;
+        }
+
+        if ($this->head->data == $data) {
+            echo $data . " found on the head" . PHP_EOL;
+            return;
+        }
+
+        $current = $this->head;
+        $index = 0;
+
+        while (!is_null($current->next)) {
+            if ($current->data == $data) {
+                echo $data . " found on index " . $index . "" . PHP_EOL;
+                return;
+            }
+
+            $current = $current->next;
+            $index++;
+        }
+
+        echo $data . " not found" . PHP_EOL;
+    }
+
     public function delete(int $data): void
     {
         if (is_null($this->head)) {
@@ -155,4 +183,7 @@ $list->appendAfterNode(85, 75);
 $list->appendAfterNode(35, 20);
 $list->delete(85);
 $list->appendBeforeNode(45, 50);
+$list->search(45);
+$list->search(95);
+$list->search(115);
 $list->print();
