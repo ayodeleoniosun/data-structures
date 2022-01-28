@@ -63,6 +63,36 @@ class LinkedList
         }
     }
 
+    public function appendAfterNode(int $data, int $target): void
+    {
+        $node = new Node($data);
+
+        if (is_null($this->head)) {
+            $this->head = $node;
+            return;
+        }
+
+        if ($this->head->data == $target) {
+            $node->next = $this->head->next;
+            $this->head->next = $node;
+            return;
+        }
+
+        $current = $this->head;
+
+        while (!is_null($current->next)) {
+            if ($current->data == $target) {
+                $node->next = $current->next;
+                $current->next = $node;
+                return;
+            }
+
+            $current = $current->next;
+        }
+
+        $current->next = $node;
+    }
+
     public function prepend(int $data): void
     {
         $newHead = new Node($data);
@@ -104,6 +134,7 @@ class LinkedList
                 echo $current->next->data . " ";
                 $current = $current->next;
             }
+            echo PHP_EOL;
         }
     }
 }
@@ -116,7 +147,11 @@ $list->append(40);
 $list->prepend(55);
 $list->prepend(50);
 $list->delete(35);
-$list->appendBeforeNode(5, 50);
+$list->appendBeforeNode(5, 40);
 $list->appendBeforeNode(95, 20);
-$list->appendBeforeNode(55, 40);
+$list->appendAfterNode(75, 40);
+$list->appendAfterNode(85, 75);
+$list->appendAfterNode(35, 20);
+$list->delete(85);
+$list->appendBeforeNode(45, 50);
 $list->print();
