@@ -115,12 +115,15 @@ class LinkedList
         $current = $this->head;
         $index = 0;
 
-        while (!is_null($current->next)) {
+        while ($current) {
             if ($current->data == $data) {
-                echo $data . " found on index " . $index . "" . PHP_EOL;
+                if (is_null($current->next)) {
+                    echo $data . " found on tail " . PHP_EOL;
+                } else {
+                    echo $data . " found on index " . $index . "" . PHP_EOL;
+                }
                 return;
             }
-
             $current = $current->next;
             $index++;
         }
@@ -185,5 +188,5 @@ $list->delete(85);
 $list->appendBeforeNode(45, 50);
 $list->search(45);
 $list->search(95);
-$list->search(115);
+$list->search(75);
 $list->print();
