@@ -153,6 +153,15 @@ class LinkedList
         }
     }
 
+    public function deleteFirstNode(): void
+    {
+        if (is_null($this->head)) {
+            return;
+        }
+
+        $this->head = $this->head->next;
+    }
+
     public function print(): void
     {
         if (is_null($this->head)) {
@@ -189,4 +198,10 @@ $list->appendBeforeNode(45, 50);
 $list->search(45);
 $list->search(95);
 $list->search(75);
+$list->deleteFirstNode();
 $list->print();
+
+
+//sort, reverse, deletefirstNode, deletelastNode, deleteAfterANode, deleteBeforeANode,
+
+//CircularLinkedList
