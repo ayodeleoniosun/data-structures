@@ -153,13 +153,33 @@ class LinkedList
         }
     }
 
-    public function deleteFirstNode(): void
+    public function shift(): void
     {
         if (is_null($this->head)) {
             return;
         }
 
         $this->head = $this->head->next;
+    }
+
+    public function pop(): void
+    {
+        if (is_null($this->head)) {
+            return;
+        }
+
+        if (is_null($this->head->next)) {
+            $this->head = null;
+            return;
+        }
+
+        $current = $this->head;
+
+        while (!is_null($current->next->next)) {
+            $current = $current->next;
+        }
+
+        $current->next = null;
     }
 
     public function print(): void
@@ -198,7 +218,9 @@ $list->appendBeforeNode(45, 50);
 $list->search(45);
 $list->search(95);
 $list->search(75);
-$list->deleteFirstNode();
+$list->shift();
+$list->search(45);
+$list->pop();
 $list->print();
 
 
