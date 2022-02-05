@@ -131,6 +131,27 @@ class LinkedList
         echo $data . " not found" . PHP_EOL;
     }
 
+    public function count(): int
+    {
+        if (is_null($this->head)) {
+            return 0;
+        }
+
+        if (is_null($this->head->next)) {
+            return 1;
+        }
+
+        $i = 0;
+        $current = $this->head;
+
+        while (!is_null($current->next)) {
+            $i++;
+            $current = $current->next;
+        }
+
+        return $i;
+    }
+
     public function delete(int $data): void
     {
         if (is_null($this->head)) {
@@ -240,6 +261,7 @@ $list->search(95);
 $list->search(75);
 $list->shift();
 $list->search(45);
+echo $list->count() . " nodes" . PHP_EOL;
 $list->pop();
 $list->pop();
 $list->deleteAllNodes();
