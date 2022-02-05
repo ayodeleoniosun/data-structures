@@ -5,7 +5,7 @@ class Node
     public int $data;
     public $next;
 
-    public function __construct(int $data, $next = null)
+    public function __construct(int $data = null, $next = null)
     {
         $this->data = $data;
         $this->next = $next;
@@ -182,6 +182,26 @@ class LinkedList
         $current->next = null;
     }
 
+    public function deleteAllNodes(): void
+    {
+        if (is_null($this->head)) {
+            return;
+        }
+
+        if (is_null($this->head->next)) {
+            $this->head = null;
+            return;
+        }
+
+        while (!is_null($this->head)) {
+            $temp = $this->head;
+            $this->head = $this->head->next;
+            $temp = null;
+        }
+
+        echo "All nodes deleted" . PHP_EOL;
+    }
+
     public function print(): void
     {
         if (is_null($this->head)) {
@@ -221,9 +241,6 @@ $list->search(75);
 $list->shift();
 $list->search(45);
 $list->pop();
+$list->pop();
+$list->deleteAllNodes();
 $list->print();
-
-
-//sort, reverse, deletefirstNode, deletelastNode, deleteAfterANode, deleteBeforeANode,
-
-//CircularLinkedList
