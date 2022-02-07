@@ -223,6 +223,30 @@ class LinkedList
         echo "All nodes deleted" . PHP_EOL;
     }
 
+    public function sort()
+    {
+        if (is_null($this->head)) {
+            return;
+        }
+
+        $current = $this->head;
+
+        while (!is_null($current)) {
+            $index = $current->next;
+
+            while (!is_null($index)) {
+                if ($current->data > $index->data) {
+                    $temp = $current->data;
+                    $current->data = $index->data;
+                    $index->data = $temp;
+                }
+
+                $index = $index->next;
+            }
+            $current = $current->next;
+        }
+    }
+
     public function print(): void
     {
         if (is_null($this->head)) {
@@ -264,5 +288,7 @@ $list->search(45);
 echo $list->count() . " nodes" . PHP_EOL;
 $list->pop();
 $list->pop();
-$list->deleteAllNodes();
 $list->print();
+$list->sort();
+$list->print();
+$list->deleteAllNodes();
