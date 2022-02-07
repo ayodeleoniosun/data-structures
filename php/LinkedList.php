@@ -15,6 +15,7 @@ class Node
 class LinkedList
 {
     public $head;
+    public $sortTypes = ['asc', 'desc'];
 
     public function __construct()
     {
@@ -223,22 +224,32 @@ class LinkedList
         echo "All nodes deleted" . PHP_EOL;
     }
 
-    public function sort()
+    public function sort($type = null): void
     {
         if (is_null($this->head)) {
             return;
         }
 
+        $type = !is_null($type) ? strtolower($type) : $type;
+
         $current = $this->head;
 
         while (!is_null($current)) {
+            if (!is_null($type) && !in_array($type, $this->sortTypes)) {
+                return;
+            }
+
             $index = $current->next;
 
             while (!is_null($index)) {
-                if ($current->data > $index->data) {
+                if ((is_null($type) || ($type == 'asc')) && $current->data > $index->data) {
                     $temp = $current->data;
                     $current->data = $index->data;
                     $index->data = $temp;
+                } elseif ($type == 'desc' && $current->data < $index->data) {
+                    $temp = $index->data;
+                    $index->data = $current->data;
+                    $current->data = $temp;
                 }
 
                 $index = $index->next;
@@ -275,6 +286,7 @@ $list->prepend(50);
 $list->delete(35);
 $list->appendBeforeNode(5, 40);
 $list->appendBeforeNode(95, 20);
+$list->appendBeforeNode(95, 20);
 $list->appendAfterNode(75, 40);
 $list->appendAfterNode(85, 75);
 $list->appendAfterNode(35, 20);
@@ -285,10 +297,9 @@ $list->search(95);
 $list->search(75);
 $list->shift();
 $list->search(45);
-echo $list->count() . " nodes" . PHP_EOL;
+echo "The list has " . $list->count() . " nodes" . PHP_EOL;
 $list->pop();
 $list->pop();
-$list->print();
 $list->sort();
 $list->print();
 $list->deleteAllNodes();
