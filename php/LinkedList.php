@@ -2,10 +2,10 @@
 
 class Node
 {
-    public int $data;
+    public ?int $data;
     public $next;
 
-    public function __construct(int $data = null, $next = null)
+    public function __construct(?int $data = null, $next = null)
     {
         $this->data = $data;
         $this->next = $next;
@@ -276,6 +276,71 @@ class LinkedList
     }
 }
 
+class MergeLinkedList
+{
+    public $head;
+    public LinkedList $list1;
+    public LinkedList $list2;
+
+    public function __construct(LinkedList $list1, LinkedList $list2)
+    {
+        $this->list1 = $list1;
+        $this->list2 = $list2;
+    }
+
+    public function merge()
+    {
+        $list1 = $this->list1->head;
+        $list2 = $this->list2->head;
+
+        if (is_null($list1)) {
+            return $list2;
+        }
+
+        if (is_null($list2)) {
+            return $list1;
+        }
+
+        $temp = new Node();
+        $this->head = $temp;
+
+        while (!is_null($list1) && !is_null($list2)) {
+            if ($list1->data <= $list2->data) {
+                $temp->next = $list1;
+                $list1 = $list1->next;
+            } else {
+                $temp->next = $list2;
+                $list2 = $list2->next;
+            }
+            $temp = $temp->next;
+        }
+
+        if (is_null($list1)) {
+            $temp->next = $list2;
+        } else if (is_null($list2)) {
+            $temp->next = $list1;
+        }
+    }
+
+    public function print(): void
+    {
+        if (is_null($this->head)) {
+            echo "The list is empty" . PHP_EOL;
+            return;
+        }
+
+        $current = $this->head;
+        echo $current->data . " ";
+
+        while (!is_null($current->next)) {
+            echo $current->next->data . " ";
+            $current = $current->next;
+        }
+        echo PHP_EOL;
+    }
+}
+
+
 $list = new LinkedList();
 $list->append(20);
 $list->append(10);
@@ -303,3 +368,23 @@ $list->pop();
 $list->sort();
 $list->print();
 $list->deleteAllNodes();
+
+//merge sorted lists
+$list1 = new LinkedList();
+$list1->append(5);
+$list1->append(7);
+$list1->append(9);
+$list1->append(10);
+
+$list2 = new LinkedList();
+$list2->append(3);
+$list2->append(4);
+$list2->append(8);
+$list2->append(10);
+
+$mergeLists = new MergeLinkedList($list1, $list2);
+echo "Merged sorted list = ";
+$mergeLists->merge();
+$mergeLists->print();
+
+
