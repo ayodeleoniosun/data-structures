@@ -169,9 +169,9 @@ class LinkedList
         while (!is_null($current->next)) {
             if ($current->next->data == $data) {
                 $current->next = $current->next->next;
-                return;
+            } else {
+                $current = $current->next;
             }
-            $current = $current->next;
         }
     }
 
@@ -320,6 +320,8 @@ class MergeLinkedList
         } else if (is_null($list2)) {
             $temp->next = $list1;
         }
+
+        return $this->head;
     }
 
     public function print(): void
@@ -348,7 +350,6 @@ $list->append(35);
 $list->append(40);
 $list->prepend(55);
 $list->prepend(50);
-$list->delete(35);
 $list->appendBeforeNode(5, 40);
 $list->appendBeforeNode(95, 20);
 $list->appendBeforeNode(95, 20);
@@ -364,10 +365,20 @@ $list->shift();
 $list->search(45);
 echo "The list has " . $list->count() . " nodes" . PHP_EOL;
 $list->pop();
-$list->pop();
-$list->sort();
+$list->print();
+$list->delete(35);
+$list->delete(95);
 $list->print();
 $list->deleteAllNodes();
+
+//sort
+$list->append(-1);
+$list->append(5);
+$list->append(3);
+$list->append(4);
+$list->append(0);
+echo "Sorted list = " . $list->sort();
+$list->print();
 
 //merge sorted lists
 $list1 = new LinkedList();
