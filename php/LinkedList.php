@@ -155,9 +155,7 @@ class LinkedList
 
     public function delete(int $data): void
     {
-        if (is_null($this->head)) {
-            return;
-        }
+        $this->checkNullHead();
 
         if ($this->head->data == $data) {
             $this->head = $this->head->next;
@@ -177,18 +175,13 @@ class LinkedList
 
     public function shift(): void
     {
-        if (is_null($this->head)) {
-            return;
-        }
-
+        $this->checkNullHead();
         $this->head = $this->head->next;
     }
 
     public function pop(): void
     {
-        if (is_null($this->head)) {
-            return;
-        }
+        $this->checkNullHead();
 
         if (is_null($this->head->next)) {
             $this->head = null;
@@ -206,9 +199,7 @@ class LinkedList
 
     public function deleteAllNodes(): void
     {
-        if (is_null($this->head)) {
-            return;
-        }
+        $this->checkNullHead();
 
         if (is_null($this->head->next)) {
             $this->head = null;
@@ -224,11 +215,25 @@ class LinkedList
         echo "All nodes deleted" . PHP_EOL;
     }
 
-    public function sort($type = null): void
+    public function removeDuplicates(): void
     {
-        if (is_null($this->head)) {
-            return;
+        $this->checkNullHead();
+
+        $this->head = $this->sort();
+        $current = $this->head;
+
+        while (!is_null($current)) {
+            if ($current->data == $current->next->data) {
+                $current->next = $current->next->next;
+            } else {
+                $current = $current->next;
+            }
         }
+    }
+
+    public function sort($type = null)
+    {
+        $this->checkNullHead();
 
         $type = !is_null($type) ? strtolower($type) : $type;
 
@@ -255,6 +260,15 @@ class LinkedList
                 $index = $index->next;
             }
             $current = $current->next;
+        }
+
+        return $this->head;
+    }
+
+    public function checkNullHead(): void
+    {
+        if (is_null($this->head)) {
+            return;
         }
     }
 
@@ -365,9 +379,8 @@ $list->shift();
 $list->search(45);
 echo "The list has " . $list->count() . " nodes" . PHP_EOL;
 $list->pop();
-$list->print();
-$list->delete(35);
-$list->delete(95);
+$list->delete(20);
+$list->removeDuplicates();
 $list->print();
 $list->deleteAllNodes();
 
@@ -377,7 +390,8 @@ $list->append(5);
 $list->append(3);
 $list->append(4);
 $list->append(0);
-echo "Sorted list = " . $list->sort();
+echo "Sorted list = ";
+$list->sort();
 $list->print();
 
 //merge sorted lists
