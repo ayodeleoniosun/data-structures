@@ -157,14 +157,13 @@ class LinkedList
     {
         $this->checkNullHead();
 
-        if ($this->head->data == $data) {
+        while (!is_null($this->head) && ($this->head->data == $data)) {
             $this->head = $this->head->next;
-            return;
         }
 
         $current = $this->head;
 
-        while (!is_null($current->next)) {
+        while (!is_null($current) && !is_null($current->next)) {
             if ($current->next->data == $data) {
                 $current->next = $current->next->next;
             } else {
@@ -222,7 +221,7 @@ class LinkedList
         $this->head = $this->sort();
         $current = $this->head;
 
-        while (!is_null($current)) {
+        while (!is_null($current->next)) {
             if ($current->data == $current->next->data) {
                 $current->next = $current->next->next;
             } else {
@@ -380,9 +379,15 @@ $list->search(45);
 echo "The list has " . $list->count() . " nodes" . PHP_EOL;
 $list->pop();
 $list->delete(20);
-$list->removeDuplicates();
-$list->print();
 $list->deleteAllNodes();
+
+//remove duplicates
+$list->append(7);
+$list->append(10);
+$list->append(7);
+$list->append(8);
+$list->removeDuplicates(7);
+$list->print();
 
 //sort
 $list->append(-1);
