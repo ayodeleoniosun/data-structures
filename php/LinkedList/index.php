@@ -51,7 +51,6 @@ $list->deleteAllNodes();
 $list->append(1);
 $list->append(3);
 $list->append(4);
-$list->append(3);
 $list->append(7);
 $list->append(1);
 $list->append(8);
@@ -60,8 +59,12 @@ $list->print();
 echo $list->isPalindrome() ? "Linked list is a palindrome" : "Linked list is not a palindrome";
 echo PHP_EOL;
 
-echo "The middle element is " . $list->getMiddleElement();
+//middle nodes
+$middleElement = $list->getMiddleElement();
+echo "The middle element is " . $middleElement;
 echo PHP_EOL;
+$list->deleteMiddleNode($middleElement);
+$list->print();
 
 //merge sorted lists
 $list1 = new LinkedList();

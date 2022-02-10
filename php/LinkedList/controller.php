@@ -194,8 +194,7 @@ class LinkedList
             return $this->head->data;
         }
 
-        $fast = $this->head;
-        $slow = $this->head;
+        $fast = $slow = $this->head;
 
         while (!is_null($fast) && !is_null($fast->next)) {
             $fast = $fast->next->next;
@@ -203,6 +202,12 @@ class LinkedList
         }
 
         return $slow->data;
+    }
+
+    public function deleteMiddleNode()
+    {
+        $middleElement = $this->getMiddleElement();
+        $this->delete($middleElement);
     }
 
     public function delete(int $data): void
