@@ -155,8 +155,12 @@ class LinkedList
 
     public function isPalindrome(): bool
     {
-        if (is_null($this->head) || is_null($this->head->next)) {
+        if (is_null($this->head)) {
             return false;
+        }
+
+        if (is_null($this->head->next)) {
+            return true;
         }
 
         $current = $this->head;
