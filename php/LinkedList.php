@@ -153,6 +153,33 @@ class LinkedList
         return $i;
     }
 
+    public function isPalindrome(): bool
+    {
+        if (is_null($this->head) || is_null($this->head->next)) {
+            return false;
+        }
+
+        $current = $this->head;
+        $stack = [];
+
+        while (!is_null($current)) {
+            $stack[] = $current->data;
+            $current = $current->next;
+        }
+
+        $palindrome = $this->head;
+
+        while (!is_null($palindrome)) {
+            if ($palindrome->data != array_pop($stack)) {
+                return false;
+            }
+
+            $palindrome = $palindrome->next;
+        }
+
+        return true;
+    }
+
     public function delete(int $data): void
     {
         $this->checkNullHead();
@@ -386,6 +413,7 @@ $list->append(7);
 $list->append(10);
 $list->append(7);
 $list->append(8);
+$list->append(7);
 $list->removeDuplicates(7);
 $list->print();
 
@@ -398,6 +426,18 @@ $list->append(0);
 echo "Sorted list = ";
 $list->sort();
 $list->print();
+$list->deleteAllNodes();
+
+//Palindrome
+$list->append(1);
+$list->append(3);
+$list->append(4);
+$list->append(3);
+$list->append(1);
+$list->print();
+
+echo $list->isPalindrome() ? "Linked list is a palindrome" : "Linked list is not a palindrome";
+echo PHP_EOL;
 
 //merge sorted lists
 $list1 = new LinkedList();
