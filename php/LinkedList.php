@@ -184,6 +184,27 @@ class LinkedList
         return true;
     }
 
+    public function getMiddleElement()
+    {
+        if (is_null($this->head)) {
+            return;
+        }
+
+        if (is_null($this->head->next)) {
+            return $this->head->data;
+        }
+
+        $fast = $this->head;
+        $slow = $this->head;
+
+        while (!is_null($fast) && !is_null($fast->next)) {
+            $fast = $fast->next->next;
+            $slow = $slow->next;
+        }
+
+        return $slow->data;
+    }
+
     public function delete(int $data): void
     {
         $this->checkNullHead();
@@ -437,10 +458,15 @@ $list->append(1);
 $list->append(3);
 $list->append(4);
 $list->append(3);
+$list->append(7);
 $list->append(1);
+$list->append(8);
 $list->print();
 
 echo $list->isPalindrome() ? "Linked list is a palindrome" : "Linked list is not a palindrome";
+echo PHP_EOL;
+
+echo "The middle element is " . $list->getMiddleElement();
 echo PHP_EOL;
 
 //merge sorted lists
