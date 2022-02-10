@@ -207,7 +207,9 @@ class LinkedList
 
     public function delete(int $data): void
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
 
         while (!is_null($this->head) && ($this->head->data == $data)) {
             $this->head = $this->head->next;
@@ -226,13 +228,18 @@ class LinkedList
 
     public function shift(): void
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
+
         $this->head = $this->head->next;
     }
 
     public function pop(): void
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
 
         if (is_null($this->head->next)) {
             $this->head = null;
@@ -250,7 +257,9 @@ class LinkedList
 
     public function deleteAllNodes(): void
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
 
         if (is_null($this->head->next)) {
             $this->head = null;
@@ -268,7 +277,9 @@ class LinkedList
 
     public function removeDuplicates(): void
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
 
         $this->head = $this->sort();
         $current = $this->head;
@@ -284,7 +295,9 @@ class LinkedList
 
     public function sort($type = null)
     {
-        $this->checkNullHead();
+        if (is_null($this->head)) {
+            return;
+        }
 
         $type = !is_null($type) ? strtolower($type) : $type;
 
@@ -314,13 +327,6 @@ class LinkedList
         }
 
         return $this->head;
-    }
-
-    public function checkNullHead(): void
-    {
-        if (is_null($this->head)) {
-            return;
-        }
     }
 
     public function print(): void
